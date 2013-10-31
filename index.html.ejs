@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title>Builds</title>
+</head>
+<body>
+	<% builds.forEach(function (bt) { %>
+	<a href="/<%= bt %>"><img src="<%= bt %>/status.png"></a> <br />
+	<% }); %>
+</body>
+</html>
