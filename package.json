@@ -8,6 +8,9 @@
     "async": "~0.2.9",
     "ejs": "~0.8.4"
   },
+  "scripts": {
+    "start": "node server.js"
+  },
   "devDependencies": {},
   "repository": "",
   "author": "Jose F. Romaniello <jfromaniello@gmail.com> (http://joseoncode.com)",
