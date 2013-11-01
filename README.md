@@ -1,5 +1,11 @@
 Teamcity Badge Frontend
 
+Get the badges you diserve (customizable):
+
+![](http://img.shields.io/build/success.png?color=green)]
+![](http://img.shields.io/build/pending.png?color=yellow)]
+![](http://img.shields.io/build/failed.png?color=red)]
+
 This is a 50 LoC proxy to your teamcity with two endpoints:
 
 1.  Badge
