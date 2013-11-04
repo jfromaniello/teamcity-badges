@@ -1,6 +1,7 @@
 var request = require('request');
-var Convert = require('ansi-to-html');
 var async = require('async');
+var ansi = require('ansi-html-stream');
+var mapStream = require('map-stream');
 
 var auth = {
   user: process.env.AUTH.split(':')[0],
@@ -42,16 +43,19 @@ module.exports.getLastbuild = function (bt, callback) {
   });
 };
 
-module.exports.getLog = function (buildNumber, callback) {
-  request.get({
+module.exports.sendLog = function (buildNumber, res) {
+  var stream = request.get({
     url: process.env.TEAMCITY + '/httpAuth/downloadBuildLog.html?buildId=' + buildNumber,
     auth: auth,
     headers: {
       'Accept': 'application/json'
     }
-  }, function (err, resp, body) {
-    if (err) return callback(err);
-    var convert = new Convert();
-    callback(null, convert.toHtml(body.replace(/\n/ig, '<br />')));
-  });
+  }).pipe(mapStream(function (data, callback) {
+    var chunk = data.toString()
+                    .replace(/\[24m/ig, '').replace(/\[4m/ig, '') //remove underlines until it get fixed in ansi-stream
+                    .replace(/\[(\d)*m/ig, '\x1B$&');
+    callback(null, chunk);
+  })).pipe(ansi({ chunked: false }));
+  stream.pipe(res, { end: false });
+  return stream;
 };

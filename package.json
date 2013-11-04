@@ -4,9 +4,10 @@
   "dependencies": {
     "express": "~3.4.4",
     "request": "~2.27.0",
-    "ansi-to-html": "~0.1.1",
     "async": "~0.2.9",
-    "ejs": "~0.8.4"
+    "ejs": "~0.8.4",
+    "map-stream": "0.0.3",
+    "ansi-html-stream": "0.0.2"
   },
   "scripts": {
     "start": "node server.js"

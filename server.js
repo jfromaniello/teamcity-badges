@@ -20,14 +20,19 @@ app.get('/', function (req, res) {
 
 app.get('/:bt', function (req, res) {
   if(!~enable_bt.indexOf(req.params.bt)) return res.send(404);
+
+  res.set({
+    'Content-Type': 'text/html; charset=utf-8',
+    'Transfer-Encoding': 'chunked'
+  });
+
   teamcity.getLastbuild(req.params.bt, function (err, lastbuild) {
     if (err) return res.send(500);
     if (!lastbuild) return res.send(404);
-    teamcity.getLog(lastbuild.id, function (err, log) {
-      res.write('<html><head><title>' + lastbuild.buildType.name + '</title></head><body>');
-      res.write(log);
-      res.write('</body>');
-      res.end();
+    res.write('<html><head><title>' + lastbuild.buildType.name + '</title></head><body><pre>');
+    var stream = teamcity.sendLog(lastbuild.id, res);
+    stream.once('end', function () {
+      res.end('</pre></body></html>');
     });
   });
 });
