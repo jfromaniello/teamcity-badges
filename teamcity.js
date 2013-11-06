@@ -12,7 +12,7 @@ module.exports.getLastbuild = function (bt, callback) {
   async.parallel([
     function (done) {
       request.get({
-        url: process.env.TEAMCITY + '/httpAuth/app/rest/buildTypes/id:bt21/builds/running:true',
+        url: process.env.TEAMCITY + '/httpAuth/app/rest/buildTypes/id:' + bt + '/builds/running:true',
         auth: auth,
         headers: {
           'Accept': 'application/json'
@@ -26,7 +26,7 @@ module.exports.getLastbuild = function (bt, callback) {
     },
     function (done) {
       request.get({
-        url: process.env.TEAMCITY + '/httpAuth/app/rest/buildTypes/id:bt21/builds/running:false',
+        url: process.env.TEAMCITY + '/httpAuth/app/rest/buildTypes/id:' + bt + '/builds/running:false',
         auth: auth,
         headers: {
           'Accept': 'application/json'
