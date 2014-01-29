@@ -31,7 +31,7 @@ $ BUILDTYPES=bt1,bt2,bt3 \ 	       # these are the ids of the build types you wa
 Then in your readme add this:
 
 ~~~
-[![Build Status](https://my-tc-proxy.com/bt1)](https://my-tc-proxy.com/bt1/status.png)
+[![Build Status](https://my-tc-proxy.com/bt1/status.png)](https://my-tc-proxy.com/bt1)
 ~~~
 
 
